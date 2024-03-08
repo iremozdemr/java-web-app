@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Application</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+    <p>Result is {{isSuccess}}</p>
+
+    <form action="/evaluate" method="post">
+        <label for="term1Notes">Term 1 Notes:</label>
+        <textarea id="term1Notes" name="term1Notes" rows="3" cols="30"></textarea><br>
+        <label for="term2Notes">Term 2 Notes:</label>
+        <textarea id="term2Notes" name="term2Notes" rows="3" cols="30"></textarea><br>
+        <label for="term1Lectures">Term 1 Lectures:</label>
+        <textarea id="term1Lectures" name="term1Lectures" rows="3" cols="30"></textarea><br>
+        <label for="term2Lectures">Term 2 Lectures:</label>
+        <textarea id="term2Lectures" name="term2Lectures" rows="3" cols="30"></textarea><br>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age"><br>
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName"><br>
+        <input type="submit" value="Evaluate">
+    </form>
+</body>
+</html>
