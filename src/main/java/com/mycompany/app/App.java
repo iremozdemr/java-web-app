@@ -112,7 +112,7 @@ public class App{
             return new ModelAndView(map, "index.mustache");
         }, new MustacheTemplateEngine());
 
-        post("/evaluate", (req, res) -> {
+        post("/evaluate", "application/json", (req, res) -> {
             ArrayList<Integer> term1Notes = new ArrayList<>();
             ArrayList<Integer> term2Notes = new ArrayList<>();
             ArrayList<String> term1Lectures = new ArrayList<>();
