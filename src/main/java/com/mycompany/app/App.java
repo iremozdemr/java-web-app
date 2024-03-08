@@ -119,41 +119,44 @@ public class App{
             ArrayList<String> term2Lectures = new ArrayList<>();
             int age = 0;
             String fullName = "";
-
+        
             try {
+                // Kullanıcı girişlerini al
                 String[] term1NotesStr = req.queryParams("term1Notes").split(",");
+                String[] term2NotesStr = req.queryParams("term2Notes").split(",");
+                String[] term1LecturesStr = req.queryParams("term1Lectures").split(",");
+                String[] term2LecturesStr = req.queryParams("term2Lectures").split(",");
+        
+                // Kullanıcı girişlerini işle
                 for (String note : term1NotesStr) {
                     term1Notes.add(Integer.parseInt(note.trim()));
                 }
-
-                String[] term2NotesStr = req.queryParams("term2Notes").split(",");
                 for (String note : term2NotesStr) {
                     term2Notes.add(Integer.parseInt(note.trim()));
                 }
-
-                String[] term1LecturesStr = req.queryParams("term1Lectures").split(",");
                 for (String lecture : term1LecturesStr) {
                     term1Lectures.add(lecture.trim());
                 }
-
-                String[] term2LecturesStr = req.queryParams("term2Lectures").split(",");
                 for (String lecture : term2LecturesStr) {
                     term2Lectures.add(lecture.trim());
                 }
-
+        
                 age = Integer.parseInt(req.queryParams("age").trim());
                 fullName = req.queryParams("fullName").trim();
             } catch (NumberFormatException e) {
+                // Hatalı giriş durumunda 400 Bad Request döndür
                 res.status(400);
-                return "invalid input!";
+                return;
             }
-
+        
+            // Başarı durumunu değerlendir
             boolean isSuccess = isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName);
-
+        
+            // Başarı durumunu ve diğer sonuçları içeren bir ModelAndView döndür
             Map<String, Object> map = new HashMap<>();
             map.put("isSuccess", isSuccess);
             return new ModelAndView(map, "compute.mustache");
-        }, new MustacheTemplateEngine());
+        }, new MustacheTemplateEngine());        
     }
 
     static int getHerokuAssignedPort() {
