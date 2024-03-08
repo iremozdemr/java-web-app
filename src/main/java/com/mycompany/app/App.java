@@ -119,6 +119,66 @@ public class App{
             ArrayList<String> term2Lectures = new ArrayList<>();
             int age = 0;
             String fullName = "";
+
+            try {
+                String[] term1NotesStr = req.queryParams("term1Notes").split(",");
+                String[] term2NotesStr = req.queryParams("term2Notes").split(",");
+                String[] term1LecturesStr = req.queryParams("term1Lectures").split(",");
+                String[] term2LecturesStr = req.queryParams("term2Lectures").split(",");
+
+                for (String note : term1NotesStr) {
+                    term1Notes.add(Integer.parseInt(note.trim()));
+                }
+                for (String note : term2NotesStr) {
+                    term2Notes.add(Integer.parseInt(note.trim()));
+                }
+                for (String lecture : term1LecturesStr) {
+                    term1Lectures.add(lecture.trim());
+                }
+                for (String lecture : term2LecturesStr) {
+                    term2Lectures.add(lecture.trim());
+                }
+
+                age = Integer.parseInt(req.queryParams("age").trim());
+                fullName = req.queryParams("fullName").trim();
+            } catch (NumberFormatException e) {
+                res.status(400); // Set status code to 400 (Bad Request) for invalid input
+                return new ModelAndView(null, "index.html"); // Redirect back to index on error
+            }
+
+            boolean isSuccess = isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName);
+
+            Map<String,Object> map = new HashMap<>();
+            map.put("isSuccess", isSuccess);
+            return new ModelAndView(map, "compute.mustache"); // Redirect to compute.mustache for result
+        });
+    }
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567;
+    }
+
+    /* 
+    public static void main(String[] args) {
+        port(getHerokuAssignedPort());
+
+        get("/", (req, res) -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("isSuccess", "not evaluated yet!");
+            return new ModelAndView(map, "index.html");
+        }, new MustacheTemplateEngine());
+
+        post("/evaluate", (req, res) -> {
+            ArrayList<Integer> term1Notes = new ArrayList<>();
+            ArrayList<Integer> term2Notes = new ArrayList<>();
+            ArrayList<String> term1Lectures = new ArrayList<>();
+            ArrayList<String> term2Lectures = new ArrayList<>();
+            int age = 0;
+            String fullName = "";
         
             try {
                 String[] term1NotesStr = req.queryParams("term1Notes").split(",");
@@ -153,12 +213,6 @@ public class App{
             return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
     }
+    */
 
-    static int getHerokuAssignedPort() {
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        if (processBuilder.environment().get("PORT") != null) {
-            return Integer.parseInt(processBuilder.environment().get("PORT"));
-        }
-        return 4567; 
-    }
 }
