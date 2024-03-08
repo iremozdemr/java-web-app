@@ -4,4 +4,4 @@ jdk:
 
 env:
   global:
-    - JAVA_HOME=/usr/lib/jvm/java-8-oracle
+    - JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-19.jdk/Contents/Home
