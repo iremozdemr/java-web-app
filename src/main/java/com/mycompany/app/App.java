@@ -145,14 +145,14 @@ public class App{
                 fullName = req.queryParams("fullName").trim();
             } catch (NumberFormatException e) {
                 res.status(400);
-                return "Invalid input!";
+                return "invalid input!";
             }
 
             boolean isSuccess = isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName);
 
             Map<String, Object> map = new HashMap<>();
             map.put("isSuccess", isSuccess);
-            return new ModelAndView(map, "result.mustache");
+            return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
     }
 
