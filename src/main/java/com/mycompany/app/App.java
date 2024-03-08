@@ -109,7 +109,7 @@ public class App{
         get("/", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
             map.put("isSuccess", "not evaluated yet!");
-            return new ModelAndView(map, "index.mustache");
+            return new ModelAndView(map, "index.html");
         }, new MustacheTemplateEngine());
 
         post("/evaluate", "application/json", (req, res) -> {
@@ -143,7 +143,7 @@ public class App{
                 fullName = req.queryParams("fullName").trim();
             } catch (NumberFormatException e) {
                 res.status(400);
-                return new ModelAndView(null, "index.mustache");
+                return new ModelAndView(null, "index.html");
             }
         
             boolean isSuccess = isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName);
