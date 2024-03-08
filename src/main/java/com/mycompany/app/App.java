@@ -143,7 +143,7 @@ public class App{
                 fullName = req.queryParams("fullName").trim();
             } catch (NumberFormatException e) {
                 res.status(400);
-                return new ModelAndView(null, "compute.mustache");
+                return new ModelAndView(null, "index.mustache");
             }
         
             boolean isSuccess = isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName);
