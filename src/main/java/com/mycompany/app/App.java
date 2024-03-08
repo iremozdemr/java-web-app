@@ -13,66 +13,6 @@ import spark.template.mustache.MustacheTemplateEngine;
 
 public class App{
 
-    public static void main(String[] args) {
-        port(getHerokuAssignedPort());
-
-        get("/", (req, res) -> {
-            Map<String, Object> map = new HashMap<>();
-            map.put("isSuccess", "not evaluated yet!");
-            return new ModelAndView(map, "index.mustache");
-        }, new MustacheTemplateEngine());
-
-        post("/evaluate", (req, res) -> {
-            ArrayList<Integer> term1Notes = new ArrayList<>();
-            ArrayList<Integer> term2Notes = new ArrayList<>();
-            ArrayList<String> term1Lectures = new ArrayList<>();
-            ArrayList<String> term2Lectures = new ArrayList<>();
-            int age = 0;
-            String fullName = "";
-
-            try {
-                String[] term1NotesStr = req.queryParams("term1Notes").split(",");
-                for (String note : term1NotesStr) {
-                    term1Notes.add(Integer.parseInt(note.trim()));
-                }
-
-                String[] term2NotesStr = req.queryParams("term2Notes").split(",");
-                for (String note : term2NotesStr) {
-                    term2Notes.add(Integer.parseInt(note.trim()));
-                }
-
-                String[] term1LecturesStr = req.queryParams("term1Lectures").split(",");
-                for (String lecture : term1LecturesStr) {
-                    term1Lectures.add(lecture.trim());
-                }
-
-                String[] term2LecturesStr = req.queryParams("term2Lectures").split(",");
-                for (String lecture : term2LecturesStr) {
-                    term2Lectures.add(lecture.trim());
-                }
-
-                age = Integer.parseInt(req.queryParams("age").trim());
-                fullName = req.queryParams("fullName").trim();
-            } catch (NumberFormatException e) {
-                res.status(400);
-            }
-
-            boolean isSuccess = isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName);
-
-            Map<String, Object> map = new HashMap<>();
-            map.put("isSuccess", isSuccess);
-            return new ModelAndView(map, "result.mustache");
-        }, new MustacheTemplateEngine());
-    }
-
-    static int getHerokuAssignedPort() {
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        if (processBuilder.environment().get("PORT") != null) {
-            return Integer.parseInt(processBuilder.environment().get("PORT"));
-        }
-        return 4567; // Return default port if heroku-port isn't set (i.e. on localhost)
-    }
-    
     public static boolean isSuccessful(ArrayList<Integer> term1Notes,ArrayList<Integer> term2Notes,ArrayList<String> term1Lectures,ArrayList<String> term2Lectures,int age,String fullName){
         if(fullName == null || fullName.isEmpty()){
             System.out.println("invalid name");
@@ -161,5 +101,66 @@ public class App{
         }
 
         return true;
+    }
+
+    public static void main(String[] args) {
+        port(getHerokuAssignedPort());
+
+        get("/", (req, res) -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("isSuccess", "not evaluated yet!");
+            return new ModelAndView(map, "index.mustache");
+        }, new MustacheTemplateEngine());
+
+        post("/evaluate", (req, res) -> {
+            ArrayList<Integer> term1Notes = new ArrayList<>();
+            ArrayList<Integer> term2Notes = new ArrayList<>();
+            ArrayList<String> term1Lectures = new ArrayList<>();
+            ArrayList<String> term2Lectures = new ArrayList<>();
+            int age = 0;
+            String fullName = "";
+
+            try {
+                String[] term1NotesStr = req.queryParams("term1Notes").split(",");
+                for (String note : term1NotesStr) {
+                    term1Notes.add(Integer.parseInt(note.trim()));
+                }
+
+                String[] term2NotesStr = req.queryParams("term2Notes").split(",");
+                for (String note : term2NotesStr) {
+                    term2Notes.add(Integer.parseInt(note.trim()));
+                }
+
+                String[] term1LecturesStr = req.queryParams("term1Lectures").split(",");
+                for (String lecture : term1LecturesStr) {
+                    term1Lectures.add(lecture.trim());
+                }
+
+                String[] term2LecturesStr = req.queryParams("term2Lectures").split(",");
+                for (String lecture : term2LecturesStr) {
+                    term2Lectures.add(lecture.trim());
+                }
+
+                age = Integer.parseInt(req.queryParams("age").trim());
+                fullName = req.queryParams("fullName").trim();
+            } catch (NumberFormatException e) {
+                res.status(400);
+                return "Invalid input!";
+            }
+
+            boolean isSuccess = isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("isSuccess", isSuccess);
+            return new ModelAndView(map, "result.mustache");
+        }, new MustacheTemplateEngine());
+    }
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; // Return default port if heroku-port isn't set (i.e. on localhost)
     }
 }
