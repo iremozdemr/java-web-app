@@ -3,26 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Application</title>
+    <title>Student Evaluation</title>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>Result is {{isSuccess}}</p>
-
+    <h1>Student Evaluation</h1>
+    
     <form action="/evaluate" method="post">
-        <label for="term1Notes">Term 1 Notes:</label>
-        <textarea id="term1Notes" name="term1Notes" rows="3" cols="30"></textarea><br>
-        <label for="term2Notes">Term 2 Notes:</label>
-        <textarea id="term2Notes" name="term2Notes" rows="3" cols="30"></textarea><br>
-        <label for="term1Lectures">Term 1 Lectures:</label>
-        <textarea id="term1Lectures" name="term1Lectures" rows="3" cols="30"></textarea><br>
-        <label for="term2Lectures">Term 2 Lectures:</label>
-        <textarea id="term2Lectures" name="term2Lectures" rows="3" cols="30"></textarea><br>
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age"><br>
-        <label for="fullName">Full Name:</label>
-        <input type="text" id="fullName" name="fullName"><br>
+        <label for="fullName">Full Name:</label><br>
+        <input type="text" id="fullName" name="fullName" required><br>
+
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age" required><br>
+
+        <label for="term1Notes">Term 1 Notes (comma separated):</label><br>
+        <textarea id="term1Notes" name="term1Notes" rows="3" cols="30" required></textarea><br>
+
+        <label for="term2Notes">Term 2 Notes (comma separated):</label><br>
+        <textarea id="term2Notes" name="term2Notes" rows="3" cols="30" required></textarea><br>
+
+        <label for="term1Lectures">Term 1 Lectures (comma separated):</label><br>
+        <textarea id="term1Lectures" name="term1Lectures" rows="3" cols="30" required></textarea><br>
+
+        <label for="term2Lectures">Term 2 Lectures (comma separated):</label><br>
+        <textarea id="term2Lectures" name="term2Lectures" rows="3" cols="30" required></textarea><br>
+
         <input type="submit" value="Evaluate">
     </form>
+
+    <div>
+        <h2>Result:</h2>
+        <p>{{isSuccess}}</p>
+    </div>
 </body>
 </html>
