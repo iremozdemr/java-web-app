@@ -112,7 +112,7 @@ public class App{
             return new ModelAndView(map, "index.html");
         }, new MustacheTemplateEngine());
 
-        post("/compute", (req, res) -> {
+        post("/evaluate", (req, res) -> {
             ArrayList<Integer> term1Notes = new ArrayList<>();
             ArrayList<Integer> term2Notes = new ArrayList<>();
             ArrayList<String> term1Lectures = new ArrayList<>();
@@ -142,15 +142,15 @@ public class App{
                 age = Integer.parseInt(req.queryParams("age").trim());
                 fullName = req.queryParams("fullName").trim();
             } catch (NumberFormatException e) {
-                res.status(400); // Set status code to 400 (Bad Request) for invalid input
-                return new ModelAndView(null, "index.html"); // Redirect back to index on error
+                res.status(400); 
+                return new ModelAndView(null, "index.html"); 
             }
 
             boolean isSuccess = isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName);
 
             Map<String,Object> map = new HashMap<>();
             map.put("isSuccess", isSuccess);
-            return new ModelAndView(map, "compute.mustache"); // Redirect to compute.mustache for result
+            return new ModelAndView(map, "compute.mustache"); 
         });
     }
 
