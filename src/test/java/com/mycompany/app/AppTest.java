@@ -1,33 +1,75 @@
 package com.mycompany.app;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
-/**
- * Unit test for simple App.
- */
 public class AppTest extends TestCase {
-     public void testFound() {
-      ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
-      assertTrue(new App().search(array, 4));
+    public void testValidParameters() {
+        ArrayList<Integer> term1Notes = new ArrayList<>();
+        term1Notes.add(90);
+        term1Notes.add(85);
+        
+        ArrayList<Integer> term2Notes = new ArrayList<>();
+        term2Notes.add(88);
+        term2Notes.add(87);
+
+        ArrayList<String> term1Lectures = new ArrayList<>();
+        term1Lectures.add("Math");
+        term1Lectures.add("Science");
+
+        ArrayList<String> term2Lectures = new ArrayList<>();
+        term2Lectures.add("History");
+        term2Lectures.add("English");
+
+        int age = 20;
+        String fullName = "John Doe";
+
+        assertTrue(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName));
     }
 
-    public void testNotFound() {
-      ArrayList<Integer> array = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
-      assertFalse(new App().search(array, 5));
+    public void testNullFullName() {
+        ArrayList<Integer> term1Notes = new ArrayList<>();
+        ArrayList<Integer> term2Notes = new ArrayList<>();
+        ArrayList<String> term1Lectures = new ArrayList<>();
+        ArrayList<String> term2Lectures = new ArrayList<>();
+        int age = 20;
+        String fullName = null;
+
+        assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName));
     }
 
-    public void testEmptyArray() {
-      ArrayList<Integer> array = new ArrayList<>();
-      assertFalse(new App().search(array, 1));
+    public void testEmptyFullName() {
+        ArrayList<Integer> term1Notes = new ArrayList<>();
+        ArrayList<Integer> term2Notes = new ArrayList<>();
+        ArrayList<String> term1Lectures = new ArrayList<>();
+        ArrayList<String> term2Lectures = new ArrayList<>();
+        int age = 20;
+        String fullName = "";
+
+        assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName));
     }
 
-    public void testNull() {
-      assertFalse(new App().search(null, 1));
-    }
+	public void testInvalidAge() {
+		ArrayList<Integer> term1Notes = new ArrayList<>();
+		term1Notes.add(90);
+		term1Notes.add(85);
+		
+		ArrayList<Integer> term2Notes = new ArrayList<>();
+		term2Notes.add(88);
+		term2Notes.add(87);
 
+		ArrayList<String> term1Lectures = new ArrayList<>();
+		term1Lectures.add("Math");
+		term1Lectures.add("Science");
+
+		ArrayList<String> term2Lectures = new ArrayList<>();
+		term2Lectures.add("History");
+		term2Lectures.add("English");
+
+		int age = 16; // Invalid age
+		String fullName = "John Doe";
+
+		assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName));
+	}
 }
