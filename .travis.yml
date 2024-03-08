@@ -1,6 +1,4 @@
 language: java
-jdk:
-  - oraclejdk19
 
 env:
   global:
