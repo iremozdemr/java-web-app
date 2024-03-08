@@ -11,7 +11,7 @@ import java.util.Map;
 import spark.ModelAndView;
 import spark.template.mustache.MustacheTemplateEngine;
 
-public class App{
+public class App implements spark.servlet.SparkApplication{
 
     public static boolean isSuccessful(ArrayList<Integer> term1Notes,ArrayList<Integer> term2Notes,ArrayList<String> term1Lectures,ArrayList<String> term2Lectures,int age,String fullName){
         if(fullName == null || fullName.isEmpty()){
@@ -103,8 +103,9 @@ public class App{
         return true;
     }
 
-    public static void main(String[] args) {
-        port(getHerokuAssignedPort());
+    @Override
+    public void init() {
+        port(getHerokuAssignedPort()); // Comment this out if not deploying to Heroku
 
         get("/", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
@@ -142,15 +143,15 @@ public class App{
                 age = Integer.parseInt(req.queryParams("age").trim());
                 fullName = req.queryParams("fullName").trim();
             } catch (NumberFormatException e) {
-                res.status(400); 
-                return new ModelAndView(null, "index.html"); 
+                res.status(400); // Set status code to 400 for invalid input
+                return new ModelAndView(null, "index.html"); // Redirect back to index on error
             }
 
             boolean isSuccess = isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName);
 
-            Map<String,Object> map = new HashMap<>();
+            Map<String, Object> map = new HashMap<>();
             map.put("isSuccess", isSuccess);
-            return new ModelAndView(map, "compute.mustache"); 
+            return new ModelAndView(map, "compute.mustache");
         });
     }
 
