@@ -121,13 +121,11 @@ public class App{
             String fullName = "";
         
             try {
-                // Kullanıcı girişlerini al
                 String[] term1NotesStr = req.queryParams("term1Notes").split(",");
                 String[] term2NotesStr = req.queryParams("term2Notes").split(",");
                 String[] term1LecturesStr = req.queryParams("term1Lectures").split(",");
                 String[] term2LecturesStr = req.queryParams("term2Lectures").split(",");
         
-                // Kullanıcı girişlerini işle
                 for (String note : term1NotesStr) {
                     term1Notes.add(Integer.parseInt(note.trim()));
                 }
@@ -144,15 +142,12 @@ public class App{
                 age = Integer.parseInt(req.queryParams("age").trim());
                 fullName = req.queryParams("fullName").trim();
             } catch (NumberFormatException e) {
-                // Hatalı giriş durumunda 400 Bad Request döndür
                 res.status(400);
-                return null; // Hata durumunda null döndür
+                return new ModelAndView(null, "compute.mustache");
             }
         
-            // Başarı durumunu değerlendir
             boolean isSuccess = isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName);
         
-            // Başarı durumunu ve diğer sonuçları içeren bir ModelAndView döndür
             Map<String, Object> map = new HashMap<>();
             map.put("isSuccess", isSuccess);
             return new ModelAndView(map, "compute.mustache");
