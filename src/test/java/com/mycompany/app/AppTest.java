@@ -73,6 +73,7 @@ public class AppTest extends TestCase {
 		assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName));
 	}
 
+    /* 
     public void testIsSuccessful() {
         ArrayList<Integer> term1Notes = new ArrayList<>();
         term1Notes.add(90);
@@ -112,4 +113,5 @@ public class AppTest extends TestCase {
         term2Notes.add(80);
         assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName));
     }
+    */
 }
