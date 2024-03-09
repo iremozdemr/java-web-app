@@ -1,7 +1,7 @@
 package com.mycompany.app;
 
 import static spark.Spark.get;
-import static spark.Spark.port;
+//import static spark.Spark.port;
 import static spark.Spark.post;
 
 import java.util.ArrayList;
@@ -105,7 +105,7 @@ public class App implements spark.servlet.SparkApplication{
 
     @Override
     public void init() {
-        port(getHerokuAssignedPort()); // Comment this out if not deploying to Heroku
+        //port(getHerokuAssignedPort()); 
 
         get("/", (req, res) -> {
             Map<String, Object> map = new HashMap<>();
@@ -143,8 +143,8 @@ public class App implements spark.servlet.SparkApplication{
                 age = Integer.parseInt(req.queryParams("age").trim());
                 fullName = req.queryParams("fullName").trim();
             } catch (NumberFormatException e) {
-                res.status(400); // Set status code to 400 for invalid input
-                return new ModelAndView(null, "index.html"); // Redirect back to index on error
+                res.status(400); 
+                return new ModelAndView(null, "index.html"); 
             }
 
             boolean isSuccess = isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName);
