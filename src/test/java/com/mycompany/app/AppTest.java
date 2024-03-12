@@ -73,14 +73,13 @@ public class AppTest extends TestCase {
 		assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName));
 	}
 
-    /* 
-    public void testIsSuccessful() {
+    public void testInvalidNotes() {
         ArrayList<Integer> term1Notes = new ArrayList<>();
         term1Notes.add(90);
-        term1Notes.add(85);
+        term1Notes.add(-5); // Invalid note
         ArrayList<Integer> term2Notes = new ArrayList<>();
-        term2Notes.add(87);
         term2Notes.add(88);
+        term2Notes.add(87);
         ArrayList<String> term1Lectures = new ArrayList<>();
         term1Lectures.add("Math");
         term1Lectures.add("Science");
@@ -89,29 +88,7 @@ public class AppTest extends TestCase {
         term2Lectures.add("English");
         String fullName = "John Doe";
         int age = 20;
-
-        assertTrue(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName));
-
-        assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, null));
-
-        assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, ""));
-
-        assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, "John123"));
-
-        assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, 16, fullName));
-
-        assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, 101, fullName));
-
-        term1Notes.add(-5);
-        assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName));
-
-        term1Notes.remove(2);
-        term2Notes.add(105);
-        assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName));
-
-        term2Notes.remove(2);
-        term2Notes.add(80);
+    
         assertFalse(App.isSuccessful(term1Notes, term2Notes, term1Lectures, term2Lectures, age, fullName));
     }
-    */
 }
